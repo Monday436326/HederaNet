@@ -9,6 +9,7 @@ export async function createEnergyListing(
   duration: number,
   qualityProof: string
 ): Promise<string> {
+  const qualityProofBytes = new TextEncoder().encode(qualityProof);
   const contractExecuteTx = new ContractExecuteTransaction()
       .setContractId(ENERGY_TRADING_CONTRACT_ID)
       .setGas(60000)
@@ -18,7 +19,7 @@ export async function createEnergyListing(
               .addUint256(amount)
               .addUint256(pricePerKwh)
               .addUint256(duration)
-              .addBytes32(qualityProof)
+              .addBytes32(qualityProofBytes)
       )
       .freezeWith(client);
 

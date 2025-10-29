@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: Apache-2.0
 pragma solidity ^0.8.0;
 
-import "./HederaTokenService.sol";
-import "./HederaResponseCodes.sol";
+import "./helpers/HederaTokenService.sol";
+import "./helpers/HederaResponseCodes.sol";
 
 contract ServicePaymentContract is HederaTokenService {
     address public treasuryAccount;
@@ -54,7 +54,6 @@ contract ServicePaymentContract is HederaTokenService {
         
         // Calculate distribution
         uint256 providerAmount = (amount * PROVIDER_SHARE) / 10000;
-        uint256 modelDevAmount = (amount * MODEL_DEVELOPER_SHARE) / 10000;
         uint256 platformAmount = (amount * PLATFORM_SHARE) / 10000;
         uint256 communityAmount = (amount * COMMUNITY_SHARE) / 10000;
         

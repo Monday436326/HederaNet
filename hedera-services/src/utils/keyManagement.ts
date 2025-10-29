@@ -8,6 +8,10 @@ export class SecureKeyManager {
   }
 
   getKey(keyName: string): PrivateKey {
-
+    const key = this.keys.get(keyName);
+    if (!key) {
+      throw new Error(`Key not found: ${keyName}`);
+    }
+    return key;
   }
 }

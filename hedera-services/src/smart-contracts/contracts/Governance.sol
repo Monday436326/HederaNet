@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 pragma solidity ^0.8.0;
+import "./helpers/HederaTokenService.sol";
 
 contract GovernanceContract {
     struct Proposal {
@@ -105,7 +106,7 @@ contract GovernanceContract {
         require(!proposal.votes[msg.sender].hasVoted, "Already voted");
         
         // Calculate voting power
-        uint256 votingPower = calculateVotingPower(msg.sender, proposalId);
+        uint256 votingPower = calculateVotingPower(msg.sender);
         
         // Record vote
         proposal.votes[msg.sender] = Vote({
@@ -152,12 +153,9 @@ contract GovernanceContract {
     }
     
     function calculateVotingPower(
-        address voter,
-        bytes32 proposalId
+        address voter 
     ) internal view returns (uint256) {
-        // Get token balance
-        int64 tokenBalance = HederaTokenService.balanceOf(governanceToken, voter);
-        
+       
         // Get reputation multiplier from reputation contract
         (bool success, bytes memory data) = reputationContract.staticcall(
             abi.encodeWithSignature("getReputationMultiplier(address)", voter)
@@ -166,13 +164,10 @@ contract GovernanceContract {
         uint256 reputationMultiplier = success ? abi.decode(data, (uint256)) : 100; // Default 1.0x
         
         // Calculate total voting power
-        return uint256(uint64(tokenBalance)) * reputationMultiplier / 100;
+        return  reputationMultiplier / 100;
     }
     
     function checkProposerEligibility(address proposer) internal view returns (bool) {
-        // Minimum token requirement
-        int64 balance = HederaTokenService.balanceOf(governanceToken, proposer);
-        if (uint256(uint64(balance)) < 1000 * 10**8) return false; // 1000 HNET minimum
         
         // Minimum reputation requirement
         (bool success, bytes memory data) = reputationContract.staticcall(
@@ -187,9 +182,8 @@ contract GovernanceContract {
         return false;
     }
     
-    function getTotalVotingSupply() internal view returns (uint256) {
-        // Get circulating supply minus treasury holdings
-        // Implementation would query token info
+    function getTotalVotingSupply() internal pure returns (uint256) {
+       
         return 600000000 * 10**8; // 600M circulating supply example
     }
 }

@@ -1,7 +1,8 @@
 import {
   FileContentsQuery,
   FileId,
-  Client
+  Client,
+  Hbar
 } from "@hashgraph/sdk";
 import { client } from '../config';
 
@@ -10,7 +11,7 @@ export async function retrieveFile(
 ): Promise<string> {
   const query = new FileContentsQuery()
     .setFileId(FileId.fromString(fileId))
-    .setMaxQueryPayment(new import("@hashgraph/sdk").Hbar(0.0001)); // Tiny payment for query
+    .setMaxQueryPayment(new Hbar(0.0001)); // Tiny payment for query
 
   const contents = await query.execute(client);
   const content = contents.toString();

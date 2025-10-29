@@ -1,11 +1,11 @@
-import { Client, ClientForMainnet, ClientForTestnet } from '@hashgraph/sdk';
+import { Client } from '@hashgraph/sdk';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
 const NETWORK = process.env.HEDERA_NETWORK || 'testnet';
 
-export const client = NETWORK === 'mainnet' ? ClientForMainnet() : ClientForTestnet();
+export const client = NETWORK === 'mainnet' ? Client.forMainnet() : Client.forTestnet();
 
 client.setOperator(
   process.env.OPERATOR_ID || '',

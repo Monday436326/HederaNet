@@ -54,14 +54,21 @@ export async function subscribeToServiceQuality(
   new TopicMessageQuery()
     .setTopicId(SERVICE_QUALITY_TOPIC_ID)
     .setStartTime(0) // Get all historical messages
-    .subscribe(client, (message) => {
-      const data = JSON.parse(message.contents.toString());
-      
-      // Verify signature
-      if (verifySignature(data, data.signature)) {
-        callback(data);
+    .subscribe(
+      client,
+      (message) => {
+        if (!message) return;
+        const data = JSON.parse(message.contents.toString());
+        
+        // Verify signature
+        if (verifySignature(data, data.signature)) {
+          callback(data);
+        }
+      },
+      (error) => {
+        console.error("Error in topic subscription:", error);
       }
-    });
+    );
 }
 
 // Usage

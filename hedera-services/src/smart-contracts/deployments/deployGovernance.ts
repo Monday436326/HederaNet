@@ -2,20 +2,23 @@ import { ContractCreateFlow, ContractId, Client, ContractFunctionParameters } fr
 import { client } from '../../config';
 import fs from 'fs';
 
-const bytecode = fs.readFileSync('dist/contracts/Governance.bin', 'utf8');
+const bytecode = fs.readFileSync('dist/contracts/Governance_sol_GovernanceContract.bin', 'utf8');
 
 export async function deployGovernanceContract(client: Client): Promise<ContractId> {
   const contractCreateTx = await new ContractCreateFlow()
     .setBytecode(bytecode)
-    .setGas(150000)
+    .setGas(15000000)
     .setConstructorParameters(
       new ContractFunctionParameters()
-        .addAddress('0x...HNET')
-        .addAddress('0x...reputation')
+        .addAddress('0x00000000000000000000000000000000006d27b9')
+        .addAddress('0x00000000000000000000000000000000006d2802')
     )
     .execute(client);
 
   const contractCreateRx = await contractCreateTx.getReceipt(client);
+  if (!contractCreateRx.contractId) {
+    throw new Error('Failed to get contract ID from receipt');
+  }
   return contractCreateRx.contractId;
 }
 
