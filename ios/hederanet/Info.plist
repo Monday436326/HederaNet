@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Existing keys... -->
+    <key>CFBundleDevelopmentRegion</key>
+    <string>en</string>
+    <key>CFBundleDisplayName</key>
+    <string>HederaNet</string>
+    <key>CFBundleExecutable</key>
+    <string>$(EXECUTABLE_NAME)</string>
+    <key>CFBundleIdentifier</key>
+    <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+    <key>CFBundleName</key>
+    <string>$(PRODUCT_NAME)</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.0.0</string>
+    <key>CFBundleVersion</key>
+    <string>1</string>
+    
+    <!-- Deep Link URL Schemes -->
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLName</key>
+            <string>io.hederanet.app</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>hederanet</string>
+            </array>
+        </dict>
+    </array>
+    
+    <!-- Universal Links (Associated Domains) -->
+    <!-- Note: Must be configured in Xcode Signing & Capabilities -->
+    <!-- Add: applinks:hederanet.io -->
+    
+    <!-- Camera Permission -->
+    <key>NSCameraUsageDescription</key>
+    <string>HederaNet needs camera access for QR code scanning</string>
+    
+    <!-- Photo Library Permission -->
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>HederaNet needs photo library access to save QR codes</string>
+    
+    <!-- Face ID Permission -->
+    <key>NSFaceIDUsageDescription</key>
+    <string>HederaNet uses Face ID for secure authentication</string>
+    
+    <!-- Allowed Queries for External Wallet Apps -->
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>metamask</string>
+        <string>bladewallet</string>
+        <string>https</string>
+    </array>
+    
+    <!-- App Transport Security -->
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <false/>
+        <key>NSExceptionDomains</key>
+        <dict>
+            <!-- Allow connection to Hedera services -->
+            <key>mainnet-public.mirrornode.hedera.com</key>
+            <dict>
+                <key>NSExceptionAllowsInsecureHTTPLoads</key>
+                <false/>
+                <key>NSIncludesSubdomains</key>
+                <true/>
+                <key>NSExceptionRequiresForwardSecrecy</key>
+                <true/>
+                <key>NSExceptionMinimumTLSVersion</key>
+                <string>TLSv1.2</string>
+            </dict>
+            <key>hashio.io</key>
+            <dict>
+                <key>NSExceptionAllowsInsecureHTTPLoads</key>
+                <false/>
+                <key>NSIncludesSubdomains</key>
+                <true/>
+            </dict>
+        </dict>
+    </dict>
+    
+    <!-- Font Files -->
+    <key>UIAppFonts</key>
+    <array>
+        <string>AntDesign.ttf</string>
+        <string>Entypo.ttf</string>
+        <string>EvilIcons.ttf</string>
+        <string>Feather.ttf</string>
+        <string>FontAwesome.ttf</string>
+        <string>FontAwesome5_Brands.ttf</string>
+        <string>FontAwesome5_Regular.ttf</string>
+        <string>FontAwesome5_Solid.ttf</string>
+        <string>Foundation.ttf</string>
+        <string>Ionicons.ttf</string>
+        <string>MaterialIcons.ttf</string>
+        <string>MaterialCommunityIcons.ttf</string>
+        <string>SimpleLineIcons.ttf</string>
+        <string>Octicons.ttf</string>
+        <string>Zocial.ttf</string>
+    </array>
+    
+    <!-- Launch Screen -->
+    <key>UILaunchStoryboardName</key>
+    <string>LaunchScreen</string>
+    
+    <!-- Required Device Capabilities -->
+    <key>UIRequiredDeviceCapabilities</key>
+    <array>
+        <string>armv7</string>
+    </array>
+    
+    <!-- Supported Interface Orientations -->
+    <key>UISupportedInterfaceOrientations</key>
+    <array>
+        <string>UIInterfaceOrientationPortrait</string>
+        <string>UIInterfaceOrientationLandscapeLeft</string>
+        <string>UIInterfaceOrientationLandscapeRight</string>
+    </array>
+    
+    <!-- Status Bar Style -->
+    <key>UIViewControllerBasedStatusBarAppearance</key>
+    <false/>
+    <key>UIStatusBarStyle</key>
+    <string>UIStatusBarStyleLightContent</string>
+</dict>
+</plist>
